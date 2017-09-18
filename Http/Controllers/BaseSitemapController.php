@@ -17,6 +17,20 @@ class BaseSitemapController extends Controller
     public function __construct()
     {
         $this->sitemap = app(Sitemap::class);
-        $this->sitemap->setCache('laravel.sitemap.index', $this->sitemapCachePeriod);
+        $module = $this->getModuleName();
+        $this->sitemap->setCache($module, $this->sitemapCachePeriod);
+    }
+
+    private function getModuleName()
+    {
+        $class = static::class;
+        if(strpos($class, "\\")) {
+            $class = explode("\\", $class);
+            $class = array_first(array_slice($class, 1, 1));
+            if(\Module::active($class)) {
+                return $class;
+            }
+        }
+        return $class;
     }
 }
