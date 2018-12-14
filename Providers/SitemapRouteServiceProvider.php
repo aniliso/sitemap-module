@@ -9,7 +9,6 @@ abstract class SitemapRouteServiceProvider extends CoreRoutingServiceProvider
     {
         $modules = $this->app['modules']->getOrdered('asc');
         $defaultLocale = array_first(array_keys(\LaravelLocalization::getSupportedLocales()));
-        \LaravelLocalization::setLocale($defaultLocale);
         $router->group(['namespace' => $this->namespace], function (Router $router) use ($modules, $defaultLocale) {
             require $this->getFrontendRoute();
             foreach ($modules as $module) {
