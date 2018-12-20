@@ -79,4 +79,29 @@ class PublicController extends BaseSitemapController
         }
         return response()->make(Robots::generate(), 200, ['Content-Type' => 'text/plain']);
     }
+
+    public function pingSitemap()
+    {
+        try
+        {
+            $client = new \GuzzleHttp\Client();
+            $url = 'https://www.google.com/webmasters/sitemaps/ping?sitemap='.route('sitemap.index');
+
+            $response = $client->request('GET', $url);
+
+            if($response->getStatusCode() != 200) {
+                throw new \Exception('Sitemap not ping');
+            }
+            return \response()->json([
+                'success' => true
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return \response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
 }

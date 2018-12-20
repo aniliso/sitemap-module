@@ -8,8 +8,12 @@ $router->group(['prefix' => ''], function (Router $router) {
         'uses' => 'PublicController@index',
         'as'   => 'sitemap.index'
     ]);
+    $router->get('ping-sitemap',[
+        'uses' => 'PublicController@pingSitemap',
+        'as'   => 'sitemap.ping'
+    ]);
     $router->get('robots.txt', [
         'uses' => 'PublicController@robots',
-        'as'   => 'robots'
+        'as'   => 'sitemap.robots'
     ]);
 });

@@ -11,9 +11,12 @@
         "Modules\\Sitemap\\Providers\\RouteServiceProvider",
         "Modules\\Sitemap\\Providers\\EventServiceProvider"
     ],
+    "widgets": [
+        "Modules\\Sitemap\\Widgets\\PingGoogleSitemapWidget"
+    ],
     "aliases": {},
     "files": [
-
+        
     ],
     "requires": []
 }
