@@ -25,10 +25,14 @@ class PingGoogleSitemap implements ShouldQueue
     public function handle($event)
     {
         try {
-            $this->client->request($this->url);
+            $res = $this->client->request('GET', $this->url);
+            if($res->getStatusCode() != 200) {
+                throw new \Exception('Sitemap not ping');
+            }
         }
-        catch (\Exception $exception) {
-            \Log::alert('Sitemap not updated');
+        catch (\Exception $exception)
+        {
+            \Log::alert($exception->getMessage());
         }
     }
 }

@@ -13,13 +13,12 @@ class BaseSitemapController extends Controller
     protected $sitemap;
     protected $sitemapCachePeriod = 3600;
     protected $defaultLocale;
-    protected $cacheKey;
 
     public function __construct()
     {
         $this->sitemap = app(Sitemap::class);
-        $this->cacheKey = config('APP_NAME').'.sitemap.'.$this->getModuleName();
-        $this->sitemap->setCache($this->cacheKey, $this->sitemapCachePeriod);
+        $module = $this->getModuleName();
+        $this->sitemap->setCache(config('app.name').'.sitemap.'.$module, $this->sitemapCachePeriod);
     }
 
     private function getModuleName()
