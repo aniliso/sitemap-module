@@ -13,34 +13,20 @@
         <a id="ping-sitemap" class="btn btn-block btn-warning">Bildir</a>
     </div>
     <!-- /.box-body -->
-
-    <div class="modal fade bs-cache-clear-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Bildirildi</h4>
-                </div>
-                <div class="modal-body">
-                    Bildirildi
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
-    $("#ping-sitemap").on('click', function () {
+    var pingSitemap = $("#ping-sitemap");
+    var successClass = 'btn btn-block btn-success';
+    var errorClass = 'btn btn-block btn-error';
+    var warningClass = 'btn btn-block btn-warning';
+    pingSitemap.on('click', function () {
+        pingSitemap.removeClass().addClass(warningClass).html('Bildiriliyor...');
         $.get("{{ route('sitemap.ping') }}", function(data){
             if(data.success) {
-                $('.bs-cache-clear-modal-sm .modal-body').html('Site Haritası Gönderildi');
-                $('.bs-cache-clear-modal-sm').modal('show');
-                setTimeout(function(){
-                    $('.bs-cache-clear-modal-sm').modal('hide');
-                },1000)
+                pingSitemap.html('Bildirildi').removeClass().addClass(successClass);
             } else {
-                $('.bs-cache-clear-modal-sm .modal-body').html('Site Haritası Gönderilemedi');
-                $('.bs-cache-clear-modal-sm').modal('show');
+                pingSitemap.html('Bildirilmedi').removeClass().addClass(errorClass);
             }
         });
     });
