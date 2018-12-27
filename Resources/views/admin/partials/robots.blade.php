@@ -28,7 +28,7 @@
         <div class="form-group">
             {!! Form::hidden("sitemap_include", 0) !!}
             {!! Form::checkbox("sitemap_include", 1,
-            old("sitemap_include", @$model->sitemap_include == 1 ? 1 : 0), ['class' => 'flat-blue']) !!}
+            old("sitemap_include", @$model->sitemap_include || !isset($model) == 1 ? 1 : 0), ['class' => 'flat-blue']) !!}
             {!! Form::label("sitemap_include", trans('sitemap::sitemap.titles.sitemap')) !!}
             {!! $errors->first("sitemap_include", '<span class="help-block">:message</span>') !!}
         </div>
